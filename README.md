@@ -26,6 +26,7 @@ Il est possible d'afficher les résultats uniquement pour les licenciés princip
 
 ### 0 - Pré-requis
 * Avoir un accès à la liste des licenciés du club sur l'intranet ffvl (membre du bureau)
+* Fonctionne avec Powershell 5 ou Powershell core
 * Installer le module powershell PowerHTML :  
 `Install-Module PowerHTML -Scope CurrentUser -ErrorAction Stop`  
 Ce module permet de rechercher du contenu via requête XPath dans les pages HTML téléchargées.

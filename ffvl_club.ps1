@@ -206,7 +206,7 @@ function Get-Licencie ($firstname, $lastname, $licencie_url, $licence_type)
       Write-Host -ForegroundColor Yellow "Type de qualification inconnu : $qualification"
     }
 
-    if ($qualification.EndsWith($year))
+    if ($qualification.ToString().EndsWith($year.ToString()))
     {
       $obtained_this_year += $qualification
     }
