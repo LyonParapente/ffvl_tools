@@ -26,14 +26,15 @@ Il est possible d'afficher les résultats uniquement pour les licenciés princip
 
 ### 0 - Pré-requis
 * Avoir un accès à la liste des licenciés du club sur l'intranet ffvl (membre du bureau)
-* Installer le module powershell PowerHTML : `Install-Module PowerHTML -Scope CurrentUser -ErrorAction Stop`  
+* Installer le module powershell PowerHTML :  
+`Install-Module PowerHTML -Scope CurrentUser -ErrorAction Stop`  
 Ce module permet de rechercher du contenu via requête XPath dans les pages HTML téléchargées.
 
 ### 1 - Récupérer un cookie d'authentification
 
 - Connectez-vous avec votre navigateur favori sur le site officiel : https://intranet.ffvl.fr/
 - Récupérer les informations du cookie d'authentification :
-Typiquement: F12 > Application (ou Stockage sous Firefox) > Cookies > intranet.ffvl.fr
+  - Typiquement: F12 > Application (ou Stockage sous Firefox) > Cookies > intranet.ffvl.fr
   - Rechercher le cookie dont le nom commence par `SSESS`
   - Copier son nom et valeur, qui seront à spécifier en paramétre du script (cf section suivante)
 
