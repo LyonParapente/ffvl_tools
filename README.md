@@ -39,7 +39,7 @@ Ce module permet de rechercher du contenu via requête XPath dans les pages HTML
   - Copier son nom et valeur, qui seront à spécifier en paramétre du script (cf section suivante)
 
 Note #1 : ne pas communiquer ces infos à autrui ! (C'est comme si vous donniez votre login/password)  
-Note #2 : La date d'expiration du cookie est visible dans la colonne appropriée, il est donc valable plusieurs jours  
+Note #2 : la date d'expiration du cookie est visible dans la colonne appropriée, il est donc valable plusieurs jours  
 
 Il vous faudra aussi l'identifiant de la structure. Très simple : allez sur "Ma structure" puis regarder la dernière partie de l'url.
 

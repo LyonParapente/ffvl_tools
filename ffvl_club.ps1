@@ -490,7 +490,7 @@ $packs | ForEach-Object { $total += $_.Value } | Out-Null
 $nbWithoutIA = $licencies.Count - $total
 $percent = ($nbWithoutIA/$licencies.Count).ToString("P1")
 Write-Host -ForegroundColor Yellow "=> Sans IA = $nbWithoutIA (sur $($licencies.Count) soit $percent%)`n"
-Write-Host -ForegroundColor Green "Note: d'autres assurances couvrant le risque parapente non ffvl existent"
+Write-Host -ForegroundColor Green "Note: d'autres assurances couvrant le risque parapente non ffvl existent`n"
 
 Write-Host -ForegroundColor Cyan "Options - Formules:"
 $licence_options.GetEnumerator() | Where-Object { $_.Name.StartsWith("Formule ") } | Format-Table -Autosize
