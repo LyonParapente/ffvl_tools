@@ -15,15 +15,6 @@ Write-Host "Year = $year"
 $baseUrl = "https://intranet.ffvl.fr"
 $url = "$baseUrl/structure/$structure/licences/$year"
 
-# $session = New-Object Microsoft.PowerShell.Commands.WebRequestSession
-# $cookie = New-Object System.Net.Cookie 
-# $cookie.Name = $cookieSessionName
-# $cookie.Value = $cookieSessionValue
-# $cookie.Domain = ".ffvl.fr"
-# $session.Cookies.Add($cookie);
-# $res = Invoke-WebRequest -UseBasicParsing -Uri $url -WebSession $session
-# $content = $res.Content
-
 Write-Host -ForegroundColor Cyan "Téléchargement des licenciés... $url"
 $wc = New-Object System.Net.WebClient
 $wc.Headers.Add('Cookie', "$cookieSessionName=$cookieSessionValue")
