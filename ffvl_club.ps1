@@ -39,6 +39,8 @@ function Get-Licencie ($firstname, $lastname, $licencie_url, $licence_type)
     bp_theorique = $false
     bp_pratique = $false
     bpi = $false
+    bpi_theorique = $false
+    bpi_pratique = $false
     bp_speedriding = $false
     bpc_speedriding = $false
     juge = $false
