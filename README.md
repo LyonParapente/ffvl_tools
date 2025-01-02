@@ -20,7 +20,7 @@ Ce script permet d'obtenir :
 - La liste des qualifications obtenues dans l'année, groupé par qualification
 - La liste des pilotes primo-pratiquants ayant obtenu un brevet
 
-Il est possible d'afficher les résultats uniquement pour les licenciés principaux du club (défaut), ou bien pour tous les adhérents (`-addOtherMembers $true`).
+Il est possible d'afficher les résultats uniquement pour les licenciés principaux du club (défaut), ou bien pour tous les adhérents dont ceux déjà inscrit à un autre club ffvl (`-addOtherMembers $true`).
 
 ## Utilisation
 
@@ -45,7 +45,7 @@ Note #2 : la date d'expiration du cookie est visible dans la colonne appropriée
 Il vous faudra aussi l'identifiant de la structure. Très simple : allez sur "Ma structure" puis regarder la dernière partie de l'url.
 
 ### 2 - Lancer le script
-
+Dans un terminal powershell :
 ``` powershell
 $year = 2024 # Année à analyser
 $structure = 377 # Identifiant club, ce n'est PAS le numéro du club, mais l'identifiant dans l'url
