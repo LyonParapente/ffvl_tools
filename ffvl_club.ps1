@@ -189,7 +189,8 @@ function Get-Licencie ($firstname, $lastname, $licencie_url, $licence_type)
     {
       $licencie_qualifications.juge = $true
     }
-    elseif ($qualification.StartsWith("Qualification fixe parapente Treuil"))
+    elseif ($qualification.StartsWith("Qualification fixe parapente Treuil") -or
+      $qualification.StartsWith("Qualification devidoir parapente Treuil"))
     {
       $licencie_qualifications.treuil = $true
     }
@@ -432,7 +433,7 @@ function Get-ObtainedQualificationsThisYear ($licencies)
       {
         $stats.juge += $user
       }
-      elseif ($brevet.StartsWith("Qualification fixe parapente Treuil"))
+      elseif ($brevet.StartsWith("Qualification fixe parapente Treuil") -or $brevet.StartsWith("Qualification devidoir parapente Treuil"))
       {
         $stats.treuil += $user
       }
