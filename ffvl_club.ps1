@@ -21,8 +21,15 @@ $wc.Headers.Add('Cookie', "$cookieSessionName=$cookieSessionValue")
 $content = $wc.DownloadString($url)
 
 $html = ConvertFrom-Html -Content $content
-$tables = $html.SelectNodes("//div[@id='content']//table")  # Note: no js so we don't have the <table class="sticky-header">
 
+$header = $html.SelectNodes("//div[@id='tasks']/ul[contains(@class, 'secondary')]/li[@class='active']/a/text()")
+if (($null -eq $header) -or ($header.InnerText -ne "Licenciés"))
+{
+  Write-Warning "Pas d'accès à la liste des licenciés"
+  Exit
+}
+
+$tables = $html.SelectNodes("//div[@id='content']//table")  # Note: no js so we don't have the <table class="sticky-header">
 $licencies_club = $tables[0]
 $adherents_club = $tables[1]
 
