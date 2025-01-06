@@ -76,5 +76,5 @@ Enfin, le script calcule les groupes et affiche les résultats.
 ## Limitations actuelles du site ffvl
 - Certains pilotes ont validé les partie pratique et théorique d'un brevet mais n'apparaissent pas dans la bonne catégorie de l'onglet "licenciés qualifiés"
 - Dans "licenciés qualifiés", des pilotes apparaissent alors qu'ils n'ont pas fini de prendre leur licence (et ne font donc pas parti des licenciés effectifs)
-- Dans "licenciés qualifiés", un pilote ayant bpi + bp + bp + biplace apparaît dans chaque section; pas de vue synthétique pour le club
+- Dans "licenciés qualifiés", un pilote ayant bpi + bp + bpc + biplace apparaît dans chaque section; pas de vue synthétique pour le club
 - Mélange licenciés / adhérents dans certains menus et pas d'autres
