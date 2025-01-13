@@ -491,8 +491,35 @@ Write-Host "`n----------`n"
 Write-Host -ForegroundColor Cyan "Licences :"
 Get-LicenceTypes $licencies | Format-Table -Autosize
 
+# biplaceurs stats
+$biplaceurs = $licencies | Where-Object { $_.licence_type.StartsWith("Pratiquant biplace associatif") }
+$biplaceurs_res = @()
+$biplaceursWithoutIAPassager = @()
+foreach ($biplaceur in $biplaceurs)
+{
+  if ($biplaceur.qualifications.biplace)
+  {
+    $name = $biplaceur.firstname + " " + $biplaceur.lastname
+    $biplaceurs_res += $name
+
+    $hasIAPassager = "Pack Essentiel Passager Volant" -in $biplaceur.options
+    if (-not $hasIAPassager)
+    {
+      $biplaceursWithoutIAPassager += $biplaceur.firstname + " " + $biplaceur.lastname
+    }
+  }
+}
+Write-Host -ForegroundColor Cyan "Biplaceurs associatifs ayant pris une licence biplace :"
+$biplaceurs_res | Sort-Object | Format-Table
+
+if ($biplaceursWithoutIAPassager.Count -gt 0)
+{
+  Write-Host -ForegroundColor Yellow "`nBiplaceurs avec licence biplace associatif sans IA passager /!\ :"
+  $biplaceursWithoutIAPassager | Format-Table
+}
+
 $licence_options = Get-LicenceOptions $licencies
-Write-Host -ForegroundColor Cyan "Options - Packs:"
+Write-Host -ForegroundColor Cyan "`nOptions - Packs:"
 $packs = $licence_options.GetEnumerator() | Where-Object { $_.Name.StartsWith("Pack ") -and ($_.Name -ne "Pack Essentiel Passager Volant") }
 $packs | Format-Table
 $total = 0
@@ -551,25 +578,7 @@ Write-Host -ForegroundColor Cyan "`nStats Qualifications $year$extraYearWarning 
 $results | Format-Table -AutoSize
 
 
-# biplaceur sans IA Passager
-$biplaceursWithoutIAPassager = @()
-$biplaceurs = $licencies | Where-Object { $_.qualifications.biplace -and $_.licence_type.StartsWith("Pratiquant biplace associatif") }
-foreach ($biplaceur in $biplaceurs)
-{
-  $hasIAPassager = "Pack Essentiel Passager Volant" -in $biplaceur.options
-  if (-not $hasIAPassager)
-  {
-    $biplaceursWithoutIAPassager += $biplaceur.firstname + " " + $biplaceur.lastname
-  }
-}
-if ($biplaceursWithoutIAPassager.Count -gt 0)
-{
-  Write-Host -ForegroundColor Yellow "Biplaceurs avec licence biplace associatif sans IA passager :"
-  $biplaceursWithoutIAPassager | Format-Table
-}
-
-
-Write-Host -ForegroundColor Cyan "`nVotre club comporte aussi :"
+Write-Host -ForegroundColor Cyan "Votre club comporte aussi :"
 $categories = @("accompagnateur", "animateur", "juge")
 foreach ($category in $categories)
 {
