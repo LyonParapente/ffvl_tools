@@ -267,6 +267,14 @@ function Get-Licencie ($firstname, $lastname, $licencie_url, $licence_type)
     $best_qualification = "bpi"
   }
 
+  # Tracker
+  $parts = $licencie_url.Split("/")
+  $parts[-1] = "tracker" # replace year with "tracker"
+  $tracker_url = $parts -join "/"
+  $tracker_content = $wc.DownloadString($tracker_url) # slows down speed as another request is made for each licencie
+  $has_tracker_device = -not $tracker_content.Contains("Aucun tracker enregistré")
+  $has_tracker_lastposition = -not $tracker_content.Contains("Aucune position enregistrée à ce jour")
+
   $result = @{
     firstname = $firstname
     lastname = $lastname
@@ -277,6 +285,8 @@ function Get-Licencie ($firstname, $lastname, $licencie_url, $licence_type)
     best_qualification = $best_qualification
     first_licence_year = $first_licence_year
     obtained_this_year = $obtained_this_year
+    has_tracker_device = $has_tracker_device
+    has_tracker_lastposition = $has_tracker_lastposition
   }
   return $result
 }
@@ -451,7 +461,7 @@ function Get-ObtainedQualificationsThisYear ($licencies)
       }
     }
   }
-  return @{stats = $stats ; qualified = $qualified}
+  return @{"stats" = $stats ; "qualified" = $qualified}
 }
 
 function Get-LicenceTypes ($licencies)
@@ -489,6 +499,24 @@ function Get-LicenceOptions ($licencies)
     }
   }
   return $options
+}
+
+function Get-TrackerStats ($licencies)
+{
+  $nbTracker = 0
+  $nbLastPosition = 0
+  foreach ($licencie in $licencies)
+  {
+    if ($licencie.has_tracker_device)
+    {
+      $nbTracker++
+    }
+    if ($licencie.has_tracker_lastposition)
+    {
+      $nbLastPosition++
+    }
+  }
+  return @{"nbTracker" = $nbTracker; "nbLastPosition" = $nbLastPosition}
 }
 
 Write-Host "`n----------`n"
@@ -623,3 +651,11 @@ if ($primos_bpi.Count -gt 0)
   Write-Host -ForegroundColor Cyan "`nPrimo-pratiquant et BPI obtenu dans l'année :"
   $primos_bpi | Sort-Object | Format-Table
 }
+
+Write-Host "`n----------`n"
+
+Write-Host -ForegroundColor Cyan "Tracker :"
+$stats = Get-TrackerStats $licencies
+Write-Host "Sur $($licencies.Count) pilotes"
+Write-Host "Pilotes ayant enregistré un tracker : $($stats.nbTracker)"
+Write-Host "Pilotes ayant une dernière position enregistrée : $($stats.nbLastPosition)"
