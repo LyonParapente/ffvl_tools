@@ -10,6 +10,11 @@ param(
   $addOtherMembers = $false # Egalement prendre en compte les adhérents du club qui sont déjà licenciés dans un autre club
 )
 
+if (-not (Get-Module -ListAvailable -Name PowerHTML)) {
+  Write-Host "Installing module PowerHTML..."
+  Install-Module PowerHTML -Scope CurrentUser -ErrorAction Stop -Force
+}
+
 Write-Host "Year = $year"
 
 $baseUrl = "https://intranet.ffvl.fr"
