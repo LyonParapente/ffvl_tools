@@ -59,6 +59,7 @@ function Get-Licencie ($firstname, $lastname, $licencie_url, $licence_type)
     treuil = $false
     accompagnateur = $false
     animateur = $false
+    init_competition = $false
   }
 
   $licencie_content = $wc.DownloadString($licencie_url)
@@ -205,6 +206,10 @@ function Get-Licencie ($firstname, $lastname, $licencie_url, $licence_type)
       $qualification.StartsWith("Qualification devidoir parapente Treuil"))
     {
       $licencie_qualifications.treuil = $true
+    }
+    elseif ($qualification.StartsWith("Comp.Course.Form.Pil – Initiation à la compétition Parapente"))
+    {
+      $licencie_qualifications.init_competition = $true
     }
     elseif ($qualification.StartsWith("Parrainage ou préformation biplace  Parapente") -or
       $qualification.StartsWith("Entrée en formation biplace Parapente") -or
