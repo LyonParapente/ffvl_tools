@@ -21,7 +21,15 @@ $url = "$baseUrl/structure/$structure/licences/$year"
 Write-Host -ForegroundColor Cyan "Téléchargement des licenciés... $url"
 $wc = New-Object System.Net.WebClient
 $wc.Headers.Add('Cookie', "$cookieSessionName=$cookieSessionValue")
-$content = $wc.DownloadString($url)
+try
+{
+  $content = $wc.DownloadString($url)
+}
+catch
+{
+  Write-Error $_
+  EXIT
+}
 
 $html = ConvertFrom-Html -Content $content
 
