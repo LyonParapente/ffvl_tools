@@ -57,6 +57,7 @@ function Get-Licencie ($civ, $firstname, $lastname, $age, $licencie_url, $licenc
     bp_theorique = $false
     bp_pratique = $false
     bpi = $false
+    bpi_date_year = $null
     bpi_theorique = $false
     bpi_pratique = $false
     bp_speedriding = $false
@@ -161,6 +162,11 @@ function Get-Licencie ($civ, $firstname, $lastname, $age, $licencie_url, $licenc
       $licencie_qualifications.bpi = $true
       $licencie_qualifications.bpi_theorique = $true
       $licencie_qualifications.bpi_pratique = $true
+
+      if ($qualification -match "le \d+/\d+/(\d{4,4})")
+      {
+        $licencie_qualifications.bpi_date_year = [int]$Matches.1
+      }
     }
     # Partie
     elseif ($qualification.StartsWith("Partie théorique du brevet de pilote confirmé Parapente"))
@@ -659,7 +665,7 @@ $primos = $licencies | Where-Object licence_type -eq "Primo-pratiquant en autono
 $primos_bpi = @()
 foreach ($primo in $primos)
 {
-  if ($primo.qualifications.bpi)
+  if ($primo.qualifications.bpi -and ($primo.qualifications.bpi_date_year -in @($year, $null)))
   {
     $primos_bpi += $primo.firstname + " " + $primo.lastname
   }
