@@ -1,6 +1,4 @@
-﻿# Install-Module PowerHTML -Scope CurrentUser -ErrorAction Stop
-
-[CmdletBinding()] # for -Verbose
+﻿[CmdletBinding()] # for -Verbose
 param(
   $year = (Get-Date).Year,
   [Parameter(mandatory=$true)]$structure,
