@@ -44,7 +44,7 @@ $tables = $html.SelectNodes("//div[@id='content']//table")  # Note: no js so we 
 $licencies_club = $tables[0]
 $adherents_club = $tables[1]
 
-function Get-Licencie ($firstname, $lastname, $licencie_url, $licence_type)
+function Get-Licencie ($civ, $firstname, $lastname, $age, $licencie_url, $licence_type)
 {
   $licencie_qualifications = @{
     pro = $false
@@ -290,8 +290,10 @@ function Get-Licencie ($firstname, $lastname, $licencie_url, $licence_type)
   $has_tracker_lastposition = -not $tracker_content.Contains("Aucune position enregistrée à ce jour")
 
   $result = @{
+    civ = $civ
     firstname = $firstname
     lastname = $lastname
+    age = $age
     licence_link = $licence_link
     licence_type = $licence_type
     options = $licencie_options
@@ -316,14 +318,16 @@ if ($addOtherMembers)
 }
 foreach ($tr in $trs)
 {
+  $civ = $tr.SelectSingleNode('td[1]').InnerText
   $firstname = $tr.SelectSingleNode('td[2]').InnerText
   $lastname = $tr.SelectSingleNode('td[3]').InnerText
+  $age = [int]$tr.SelectSingleNode('td[8]').InnerText
   $licence_link = $tr.SelectSingleNode('td[4]/a').Attributes["href"].Value
   $licence_type = $tr.SelectSingleNode('td[6]').InnerText
 
   $licencie_url = $baseUrl + $licence_link
-  Write-Host "$firstname $lastname | $licencie_url"
-  $licencies += Get-Licencie $firstname $lastname $licencie_url $licence_type
+  Write-Host "$civ $firstname $lastname $age | $licencie_url"
+  $licencies += Get-Licencie $civ $firstname $lastname $age $licencie_url $licence_type
 }
 
 function Get-Qualified ($licencies, $level, $ignoreIfHasBetterQualification)
@@ -673,3 +677,10 @@ $stats = Get-TrackerStats $licencies
 Write-Host "Sur $($licencies.Count) pilotes"
 Write-Host "Pilotes ayant enregistré un tracker : $($stats.nbTracker)"
 Write-Host "Pilotes ayant une dernière position enregistrée : $($stats.nbLastPosition)"
+
+
+Write-Host -ForegroundColor Cyan "`nAge moyen :"
+[math]::Round(($licencies | Measure-Object -Property age -Average).Average, 1)
+
+Write-Host -ForegroundColor Cyan "`nCivilités :"
+($licencies | Group-Object -Property civ -NoElement)
