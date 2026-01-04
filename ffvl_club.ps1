@@ -223,7 +223,10 @@ function Get-Licencie ($firstname, $lastname, $licencie_url, $licence_type)
       $qualification.StartsWith("Sensibilisation à la pédagogie spécifique de ") -or
       $qualification.StartsWith("Elève Moniteur Fédéral (36 mois) Parapente") -or
       $qualification.StartsWith("UCC enseignement Speed-Riding") -or
-      $qualification.StartsWith("UCC Hand'icare biplace Parapente"))
+      $qualification.StartsWith("UCC Hand'icare biplace Parapente") -or
+      $qualification.StartsWith("Brevet de pilote Delta Souple") -or
+      $qualification.StartsWith("Brevet de pilote confirmé Delta Souple") -or
+      $qualification.StartsWith("Qualification Biplace Delta Souple"))
     {
       # ignore
     }
